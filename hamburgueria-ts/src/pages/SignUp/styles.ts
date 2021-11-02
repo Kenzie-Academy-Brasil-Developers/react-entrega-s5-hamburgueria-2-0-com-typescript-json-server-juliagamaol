@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     @media (min-width:769px){
-        flex-flow: row nowrap;
+        flex-flow: row-reverse nowrap;
         height: 100vh;
     }
     width: 100%;
@@ -26,6 +26,23 @@ export const Container = styled.div`
         box-shadow: 0px 0px 30px -20px var(--gray-0);
         border-radius: 5px;
         gap: 20px;
+
+        div{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            a{
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 22px;
+                text-decoration-line: underline;
+                color: var(--gray-300);
+
+
+            }
+        }
+
         h3{
             font-weight: bold;
             font-size: 18px;
