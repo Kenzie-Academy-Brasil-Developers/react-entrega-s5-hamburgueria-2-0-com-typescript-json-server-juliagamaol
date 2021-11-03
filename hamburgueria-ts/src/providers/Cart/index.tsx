@@ -10,22 +10,22 @@ interface Product {
     title: string;
     type: string;
     price: number;
-    total:number
     image: string;
-    userId?:number
+    userId:number
+    id:number;
 }
 
 interface CartProviderData{
     getCart: ()=>void
     cart:Product[]
     addProduct: (product:Product) => void
-    deleteProduct: (product:Product) => void
+    deleteProduct: (productId:number) => void
 }
 
 const CartContext = createContext<CartProviderData>({} as CartProviderData)
 
 export const CartProvider = ({children}:CartProviderProps) =>{
-    const{authToken} = useAuth()
+    const{authToken,id} = useAuth()
     const[cart, setCart] = useState<Product[]>([])
 
     const getCart = () =>{
@@ -47,19 +47,22 @@ export const CartProvider = ({children}:CartProviderProps) =>{
             "title": product.title,
             "type": product.type,
             "price": product.price,
-            "userId":product.userId,
+            "image":product.image,
+            "userId":id,
         }
         axios.post("https://api-hamburgueria2.herokuapp.com/cart",newLanch,{
             headers:{
                 Authorization: `Bearer ${authToken}`
             }
         })
-        .then(response=>console.log(response.data))
+        .then(response=>setCart([...cart,response.data]))
+        
         .catch(err=>console.log(err))
+        console.log(cart)
     }
 
-    const deleteProduct = (deleted:Product) =>{
-        axios.delete(`https://api-hamburgueria2.herokuapp.com/cart/${deleted}`,{
+    const deleteProduct = (productId:number) =>{
+        axios.delete(`https://api-hamburgueria2.herokuapp.com/cart/${productId}`,{
             headers:{
                 Authorization: `Bearer ${authToken}`
             }

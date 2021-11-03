@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useHistory } from "react-router";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 interface AuthProviderProps{
     children:ReactNode
@@ -21,10 +21,10 @@ interface UserRegister{
 
 interface AuthProviderData{
     authToken:string 
+    id:string
     Logout:()=>void 
     signIn:(userData:User) => void
     signUp:(userData:UserRegister) => void
-    userId:number
 }
 
 const AuthContext = createContext<AuthProviderData>({} as AuthProviderData)
@@ -34,16 +34,19 @@ export const AuthProvider = ({children}:AuthProviderProps) =>{
     const[authToken, setAuthToken] = useState(
         ()=>localStorage.getItem("token") || ""
     )
-    const [userId, setUserId] = useState(0)
+    const[id, setId] = useState<string>(()=>localStorage.getItem("@id") || "")
+    
     const signUp = (userData:UserRegister) =>{
         axios.post("https://api-hamburgueria2.herokuapp.com/register",userData)
         .then(response=>{
-            localStorage.setItem("token",response.data.token)
-            setAuthToken(response.data.token)
+            localStorage.setItem("token",response.data.accessToken)
+            setAuthToken(response.data.accessToken)
+            localStorage.setItem("@id",response.data.user.id)
+            setId(response.data.id)
             history.push('/')
             toast.success('Conta criada com sucesso')
         })
-        .catch(()=>toast.error('Erro ao criar conta'))
+        .catch(()=>toast.error('E-mail já cadastrado'))
     }
 
     const signIn = (userData:User) =>{
@@ -51,11 +54,10 @@ export const AuthProvider = ({children}:AuthProviderProps) =>{
         .then(response=>{
             localStorage.setItem("token",response.data.accessToken)
             setAuthToken(response.data.accessToken)
-            localStorage.setItem('@id',response.data.user.userId)
-            setUserId(response.data.user.id)
+            localStorage.setItem("@id",response.data.user.id)
+            setId(response.data.id)
             history.push('/dashboard')
-            toast.success('Bem vindo novamente')
-            
+            toast.success('Bem vindo de volta')
         })
         .catch(()=>toast.error('Email ou senha inválidos'))
     }
@@ -67,7 +69,7 @@ export const AuthProvider = ({children}:AuthProviderProps) =>{
     }
 
     return(
-        <AuthContext.Provider value={{authToken,Logout,signIn,signUp,userId}}>
+        <AuthContext.Provider value={{authToken,Logout,signIn,signUp,id}}>
             {children}
         </AuthContext.Provider>
     )

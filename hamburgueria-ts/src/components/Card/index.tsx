@@ -7,7 +7,8 @@ interface CardData{
     type: string;
     price: number;
     image: string;
-    total:number
+    userId:number
+    id:number
 }
 
 interface CardProps{
@@ -16,6 +17,7 @@ interface CardProps{
 
 export default function Card({card}:CardProps) {
     const {addProduct} = useCart()
+    console.log(typeof card.price)
     return (
         <Container>
             <div className="image">
@@ -27,7 +29,7 @@ export default function Card({card}:CardProps) {
                 <p>{card.type}</p>
                 <h5>{card.price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</h5>
                 <div>
-                    <Button onClick={()=>{addProduct({...card,total:card.price})}} colorToChange>Adicionar</Button>
+                    <Button onClick={()=>{addProduct(card)}} colorToChange>Adicionar</Button>
                 </div>
             </div>
         </Container>

@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const Content = styled.div`
     width: 70%;
     max-width: 500px;
-    min-height: 158px;
+    min-height: 357px;
     display: flex;
     flex-direction: column;
     position: absolute;

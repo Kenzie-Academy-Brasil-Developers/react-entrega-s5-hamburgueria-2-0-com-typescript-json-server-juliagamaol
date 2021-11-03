@@ -9,6 +9,7 @@ interface ICartContainer{
 
 export default function CartContainer({showCartItems}:ICartContainer) {
     const{cart} = useCart()
+    console.log(cart)
     return (
         <Container>
             {
@@ -30,7 +31,7 @@ export default function CartContainer({showCartItems}:ICartContainer) {
                         <div className="tot">
                         <span>Total</span>
                         <span>
-                            {cart.reduce((acc,tot)=>acc + tot.total,0)
+                            {cart.reduce((acc,tot)=>acc + tot.price,0)
                             .toLocaleString('pt-BR',{
                                 style:'currency',
                                 currency:'BRL'

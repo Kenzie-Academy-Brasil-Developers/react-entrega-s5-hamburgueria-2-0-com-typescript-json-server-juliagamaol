@@ -6,6 +6,7 @@ import sair from '../../images/sair.svg'
 import { Container } from './styles'
 import { useHistory } from 'react-router'
 import { useCart } from '../../providers/Cart'
+import { useAuth } from '../../providers/Auth'
 
 interface IBar{
     showCartItems:()=>void
@@ -14,6 +15,7 @@ interface IBar{
 export default function Bar({showCartItems}:IBar) {
     const history =useHistory()
     const{cart} = useCart()
+    const{Logout} = useAuth()
     return (
         <Container>
             <div className="bar">
@@ -27,7 +29,7 @@ export default function Bar({showCartItems}:IBar) {
                     <div className="logout">
                         
                     </div>
-                    <img className="logout" src={sair} alt="sair" onClick={()=>history.push('/')}/>
+                    <img className="logout" src={sair} alt="sair" onClick={()=>Logout()}/>
                 </nav>
             </div>
         </Container>

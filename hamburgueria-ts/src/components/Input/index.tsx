@@ -4,22 +4,25 @@ import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { InputContainer } from './styles'
 
 interface InputProps extends HTMLAttributes<HTMLInputElement>{
-    name?:string 
+    name:string 
     placeholder: string 
     type?:string
-    // register: UseFormRegister<FieldValues>
+    register: UseFormRegister<FieldValues>
+    error:any
 }
 
-export default function Input({type,name,placeholder}:InputProps) {
+export default function Input({error,register,type,name,placeholder}:InputProps) {
     return (
-        <InputContainer>
-            <input 
-            name={name}
-            placeholder={placeholder}
-            type={type}
-            />
-
-        </InputContainer>
+        <>
+            {error && <span style={{color:"var(--negative)"}}>{error}</span>}
+            <InputContainer>
+                <input 
+                placeholder={placeholder}
+                type={type}
+                {...register(name)}
+                />
+            </InputContainer>
+        </>
     )
 }
 

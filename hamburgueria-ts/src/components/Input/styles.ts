@@ -21,6 +21,7 @@ export const InputContainer = styled.div`
     margin-left: 10px;
     outline: none;
     color: var(--gray-600);
+    
   }
 
 `

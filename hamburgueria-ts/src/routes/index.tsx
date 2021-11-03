@@ -5,6 +5,7 @@ import SignUp from "../pages/SignUp";
 
 
 export default function Routes() {
+    
     return (
         <Switch>
             <Route exact path="/">
