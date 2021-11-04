@@ -10,6 +10,7 @@ interface FoodsAndDrinksData{
     type: string;
     price: number;
     image: string;
+    id:number
 }
 
 interface FoodsAndDrinksProviderData{
@@ -21,7 +22,7 @@ export const FoodsAndDrinksContext = createContext<FoodsAndDrinksProviderData>({
 
 export const FoodsAndDrinksProvider = ({children}:FoodsAndDrinksProps) =>{
     const [launchs, setLaunchs] = useState<FoodsAndDrinksData[]>([] as FoodsAndDrinksData[])
-
+    console.log(launchs)
     const getLaunchs = () =>{
         axios
         .get("https://api-hamburgueria2.herokuapp.com/foodsAndDrinks")

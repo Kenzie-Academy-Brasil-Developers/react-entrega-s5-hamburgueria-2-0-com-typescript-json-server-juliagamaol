@@ -7,7 +7,7 @@ interface ContainerProps{
 export const Container = styled.button<ContainerProps>`
     width: 100%;
     max-width: 452px;
-    height: 60px;
+    min-height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;

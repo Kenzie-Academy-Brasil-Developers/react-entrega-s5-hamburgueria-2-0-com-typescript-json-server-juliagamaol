@@ -9,6 +9,7 @@ import logo from '../../images/Mask Group.png'
 import Button from '../../components/Button'
 import { useAuth } from '../../providers/Auth'
 
+
 interface UserData{
     email:string
     password:string 
@@ -25,7 +26,7 @@ export default function Login() {
         resolver:yupResolver(schema)
     })
     const handleClick = (userData: UserData) => {
-        signIn(userData);
+        signIn(userData,history);
     };
 
     return (
@@ -45,7 +46,7 @@ export default function Login() {
                 type="password" 
                 placeholder="Sua senha"
                 error={errors.password?.message}/>
-                <Button colorToChange>Logar</Button>
+                <Button  colorToChange>Logar</Button>
                 <p>Crie sua conta para saborear muitas delícias e matar sua fome!</p>
                 <Button type="submit" onClick= {()=>history.push('/signup')} colorToChange={false}>Cadastrar</Button>
             </form>

@@ -11,8 +11,7 @@ interface Product {
     type: string;
     price: number;
     image: string;
-    userId:number
-    id:number;
+    userId:number;
 }
 
 interface CartProviderData{
@@ -20,6 +19,7 @@ interface CartProviderData{
     cart:Product[]
     addProduct: (product:Product) => void
     deleteProduct: (productId:number) => void
+    removeAll:()=>void
 }
 
 const CartContext = createContext<CartProviderData>({} as CartProviderData)
@@ -30,7 +30,7 @@ export const CartProvider = ({children}:CartProviderProps) =>{
 
     const getCart = () =>{
         axios
-            .get("https://api-hamburgueria2.herokuapp.com/cart",{
+            .get(`https://api-hamburgueria2.herokuapp.com/cart?userId=${id}`,{
                 headers:{
                     Authorization: `Bearer ${authToken}`
                 }
@@ -39,7 +39,6 @@ export const CartProvider = ({children}:CartProviderProps) =>{
                 setCart(response.data)
             })
             .catch(err=>console.log(err))
-
     }
 
     const addProduct = (product:Product) =>{
@@ -49,6 +48,8 @@ export const CartProvider = ({children}:CartProviderProps) =>{
             "price": product.price,
             "image":product.image,
             "userId":id,
+            
+            
         }
         axios.post("https://api-hamburgueria2.herokuapp.com/cart",newLanch,{
             headers:{
@@ -56,9 +57,7 @@ export const CartProvider = ({children}:CartProviderProps) =>{
             }
         })
         .then(response=>setCart([...cart,response.data]))
-        
         .catch(err=>console.log(err))
-        console.log(cart)
     }
 
     const deleteProduct = (productId:number) =>{
@@ -67,12 +66,16 @@ export const CartProvider = ({children}:CartProviderProps) =>{
                 Authorization: `Bearer ${authToken}`
             }
         })
-        .then(response=>setCart([]))
+        .then((_)=>getCart())
         .catch(err=>console.log(err))
     }
 
+    const removeAll = () =>{
+        setCart([])
+    }
+
     return(
-        <CartContext.Provider value={{cart, addProduct,deleteProduct,getCart}}>
+        <CartContext.Provider value={{cart, addProduct,deleteProduct,removeAll,getCart}}>
             {children}
         </CartContext.Provider>
     )

@@ -6,7 +6,8 @@ export const Container = styled.div`
     height: 100px;
     display: flex;
     justify-content: space-between;
-
+    margin: 5px;
+    
     .product{
         display: flex;
         gap: 20px;
@@ -19,11 +20,16 @@ export const Container = styled.div`
         justify-content: center;
         align-items: center;
         background: var(--gray-100);
-
+        border-radius: 5px;
         img{
             width: 55px;
             height: 53.49px;
         }
     }
+    
+    
 
 `
+/* color: var(--gray-600);
+font-size: 18px;
+font-weight: bold;*/

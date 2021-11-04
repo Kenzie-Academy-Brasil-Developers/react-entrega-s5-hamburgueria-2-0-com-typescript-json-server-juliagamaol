@@ -19,6 +19,7 @@ interface UserData{
 
 export default function SignUp() {
     const{signUp} = useAuth()
+    const history = useHistory()
     const schema = yup.object().shape({
         name: yup.string().required("Nome obrigatório"),
         email: yup.string().required("E-mail obrigatório").email("Email inválido"),
@@ -33,7 +34,7 @@ export default function SignUp() {
         resolver:yupResolver(schema)
     })
     const handleClick = (userData: UserData) => {
-        signUp(userData);
+        signUp(userData,history);
     };
     return (
         <Container>

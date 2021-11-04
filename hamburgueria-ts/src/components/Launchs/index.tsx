@@ -19,6 +19,10 @@ interface ILaunchs{
 export default function Launchs({item}:ILaunchs) {
     const{deleteProduct} = useCart()
     const{image,title,id} = item
+    const handleRemove = (productId:number) =>{
+        deleteProduct(productId)
+    }
+   
     return (
         <Container>
             <div className="product">
@@ -28,10 +32,13 @@ export default function Launchs({item}:ILaunchs) {
 
                 <div className="product__description">
                     <h3>{title}</h3>
-                    <img src={trash} alt="lixeira" onClick={()=>deleteProduct(id)} style={{cursor:"pointer"}}/>
-                    
+                    <div className="trash">
+                        <img src={trash} alt="lixeira" onClick={()=>handleRemove(id)} style={{cursor:"pointer"}}/>
+                    </div>
+
                 </div>
             </div>
+
         </Container>
     )
 }

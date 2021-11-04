@@ -13,7 +13,7 @@ interface IBar{
 }
 
 export default function Bar({showCartItems}:IBar) {
-    const history =useHistory()
+    const history = useHistory()
     const{cart} = useCart()
     const{Logout} = useAuth()
     return (
@@ -29,7 +29,7 @@ export default function Bar({showCartItems}:IBar) {
                     <div className="logout">
                         
                     </div>
-                    <img className="logout" src={sair} alt="sair" onClick={()=>Logout()}/>
+                    <img className="logout" src={sair} alt="sair" onClick={()=>Logout(history)}/>
                 </nav>
             </div>
         </Container>

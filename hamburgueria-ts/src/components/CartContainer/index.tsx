@@ -2,14 +2,23 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useCart } from '../../providers/Cart'
 import Launchs from "../Launchs";
 import { Container, Content } from "./styles";
+import Button from '../Button'
 
 interface ICartContainer{
     showCartItems:()=>void
 }
-
+interface LaunchData{
+    title: string;
+    type: string;
+    price: number;
+    image: string;
+    userId:number
+    id:number
+    
+}
 export default function CartContainer({showCartItems}:ICartContainer) {
-    const{cart} = useCart()
-    console.log(cart)
+    const{cart,removeAll} = useCart()
+    
     return (
         <Container>
             {
@@ -23,12 +32,12 @@ export default function CartContainer({showCartItems}:ICartContainer) {
 
                     <div className="cart">
                         {cart.map((item,index)=>(
-                            <Launchs item={item} key={index}/>
+                            <Launchs item={item as LaunchData} key={index}/>
                         ))}
                     </div>
                     
                     {cart.length > 0 ? (
-                        <div className="tot">
+                    <div className="tot">
                         <span>Total</span>
                         <span>
                             {cart.reduce((acc,tot)=>acc + tot.price,0)
@@ -37,7 +46,14 @@ export default function CartContainer({showCartItems}:ICartContainer) {
                                 currency:'BRL'
                             })}
                         </span>
+
+                        <div className="removeAll">
+                            <Button colorToChange={false} onClick={()=>removeAll()}>Remover todos</Button>
+                        </div>
                     </div>
+
+                    
+
                     ):(
                         <div className="aviso">
                             <h2>Sua sacola está vazia</h2>

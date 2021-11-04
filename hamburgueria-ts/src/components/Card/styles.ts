@@ -41,7 +41,7 @@ export const Container = styled.div`
        font-weight: 600;
        color: var(--primary);
    }
-   div{
+   .button{
        width: 106px;
        height: 40px;
    }
