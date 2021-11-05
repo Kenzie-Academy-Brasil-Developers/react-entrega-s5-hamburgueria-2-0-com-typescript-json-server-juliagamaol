@@ -8,7 +8,7 @@ interface InputProps extends HTMLAttributes<HTMLInputElement>{
     placeholder: string 
     type?:string
     register: UseFormRegister<FieldValues>
-    error:any
+    error?:string
 }
 
 export default function Input({error,register,type,name,placeholder}:InputProps) {
@@ -26,4 +26,3 @@ export default function Input({error,register,type,name,placeholder}:InputProps)
     )
 }
 
-// {...register(name)} type={type}
